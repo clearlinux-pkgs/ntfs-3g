@@ -4,7 +4,7 @@
 #
 Name     : ntfs-3g
 Version  : _ntfsprogs
-Release  : 5
+Release  : 6
 URL      : https://tuxera.com/opensource/ntfs-3g_ntfsprogs-2016.2.22.tgz
 Source0  : https://tuxera.com/opensource/ntfs-3g_ntfsprogs-2016.2.22.tgz
 Summary  : NTFS-3G Read/Write Driver Library
