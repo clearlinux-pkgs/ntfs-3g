@@ -1,0 +1,14 @@
+Configure miss: Windows OS
+Configure miss: Solaris OS
+Configure miss: uuid_generate
+Configure miss: hd.h usability
+Configure miss: hd.h presence
+Configure miss: hd.h
+Configure miss: sys/byteorder.h usability
+Configure miss: sys/byteorder.h presence
+Configure miss: sys/byteorder.h
+Configure miss: machine/endian.h usability
+Configure miss: machine/endian.h presence
+Configure miss: machine/endian.h
+Configure miss: struct stat.st_atimespec
+Configure miss: struct stat.st_atimensec
