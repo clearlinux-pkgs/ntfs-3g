@@ -12,3 +12,4 @@ Configure miss: machine/endian.h presence
 Configure miss: machine/endian.h
 Configure miss: struct stat.st_atimespec
 Configure miss: struct stat.st_atimensec
+Configure miss: dlopen in -lc
