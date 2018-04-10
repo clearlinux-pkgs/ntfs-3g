@@ -1,0 +1,1 @@
+ln -sf /usr/bin/mount.ntfs-3g %{buildroot}/usr/bin/mount.ntfs
