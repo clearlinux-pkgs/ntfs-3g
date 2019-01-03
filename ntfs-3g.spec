@@ -4,7 +4,7 @@
 #
 Name     : ntfs-3g
 Version  : 3g.progs.2017.3.23
-Release  : 12
+Release  : 13
 URL      : https://tuxera.com/opensource/ntfs-3g_ntfsprogs-2017.3.23.tgz
 Source0  : https://tuxera.com/opensource/ntfs-3g_ntfsprogs-2017.3.23.tgz
 Summary  : NTFS-3G Read/Write Driver Library
