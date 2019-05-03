@@ -4,6 +4,7 @@ Configure miss: uuid_generate
 Configure miss: hd.h usability
 Configure miss: hd.h presence
 Configure miss: hd.h
+Configure miss: whether sys/types.h defines makedev
 Configure miss: sys/byteorder.h usability
 Configure miss: sys/byteorder.h presence
 Configure miss: sys/byteorder.h

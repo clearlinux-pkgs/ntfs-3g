@@ -4,19 +4,20 @@
 #
 Name     : ntfs-3g
 Version  : 3g.progs.2017.3.23
-Release  : 13
+Release  : 14
 URL      : https://tuxera.com/opensource/ntfs-3g_ntfsprogs-2017.3.23.tgz
 Source0  : https://tuxera.com/opensource/ntfs-3g_ntfsprogs-2017.3.23.tgz
 Summary  : NTFS-3G Read/Write Driver Library
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.0
-Requires: ntfs-3g-bin
-Requires: ntfs-3g-lib
-Requires: ntfs-3g-doc
+Requires: ntfs-3g-bin = %{version}-%{release}
+Requires: ntfs-3g-lib = %{version}-%{release}
+Requires: ntfs-3g-license = %{version}-%{release}
+Requires: ntfs-3g-man = %{version}-%{release}
 BuildRequires : glibc-staticdev
 BuildRequires : pkgconfig(fuse)
-BuildRequires : pkgconfig(uuid)
 BuildRequires : util-linux-dev
+Patch1: CVE-2019-9755.patch
 
 %description
 INTRODUCTION
@@ -29,6 +30,7 @@ Windows Vista, Windows Server 2008 and Windows 7 file systems.
 %package bin
 Summary: bin components for the ntfs-3g package.
 Group: Binaries
+Requires: ntfs-3g-license = %{version}-%{release}
 
 %description bin
 bin components for the ntfs-3g package.
@@ -37,9 +39,10 @@ bin components for the ntfs-3g package.
 %package dev
 Summary: dev components for the ntfs-3g package.
 Group: Development
-Requires: ntfs-3g-lib
-Requires: ntfs-3g-bin
-Provides: ntfs-3g-devel
+Requires: ntfs-3g-lib = %{version}-%{release}
+Requires: ntfs-3g-bin = %{version}-%{release}
+Provides: ntfs-3g-devel = %{version}-%{release}
+Requires: ntfs-3g = %{version}-%{release}
 
 %description dev
 dev components for the ntfs-3g package.
@@ -48,6 +51,7 @@ dev components for the ntfs-3g package.
 %package doc
 Summary: doc components for the ntfs-3g package.
 Group: Documentation
+Requires: ntfs-3g-man = %{version}-%{release}
 
 %description doc
 doc components for the ntfs-3g package.
@@ -56,20 +60,43 @@ doc components for the ntfs-3g package.
 %package lib
 Summary: lib components for the ntfs-3g package.
 Group: Libraries
+Requires: ntfs-3g-license = %{version}-%{release}
 
 %description lib
 lib components for the ntfs-3g package.
 
 
+%package license
+Summary: license components for the ntfs-3g package.
+Group: Default
+
+%description license
+license components for the ntfs-3g package.
+
+
+%package man
+Summary: man components for the ntfs-3g package.
+Group: Default
+
+%description man
+man components for the ntfs-3g package.
+
+
 %prep
 %setup -q -n ntfs-3g_ntfsprogs-2017.3.23
+%patch1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1523377921
+export SOURCE_DATE_EPOCH=1556905577
+export LDFLAGS="${LDFLAGS} -fno-lto"
+export CFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FCFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
+export CXXFLAGS="$CXXFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
 %configure --disable-static --disable-ldconfig
 make  %{?_smp_mflags}
 
@@ -81,12 +108,15 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1523377921
+export SOURCE_DATE_EPOCH=1556905577
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/ntfs-3g
+cp COPYING %{buildroot}/usr/share/package-licenses/ntfs-3g/COPYING
+cp COPYING.LIB %{buildroot}/usr/share/package-licenses/ntfs-3g/COPYING.LIB
 %make_install
-## make_install_append content
+## install_append content
 ln -sf /usr/bin/mount.ntfs-3g %{buildroot}/usr/bin/mount.ntfs
-## make_install_append end
+## install_append end
 
 %files
 %defattr(-,root,root,-)
@@ -158,11 +188,43 @@ ln -sf /usr/bin/mount.ntfs-3g %{buildroot}/usr/bin/mount.ntfs
 /usr/lib64/pkgconfig/libntfs-3g.pc
 
 %files doc
-%defattr(-,root,root,-)
+%defattr(0644,root,root,0755)
 %doc /usr/share/doc/ntfs\-3g/*
-%doc /usr/share/man/man8/*
 
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libntfs-3g.so.88
 /usr/lib64/libntfs-3g.so.88.0.0
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/ntfs-3g/COPYING
+/usr/share/package-licenses/ntfs-3g/COPYING.LIB
+
+%files man
+%defattr(0644,root,root,0755)
+/usr/share/man/man8/mkfs.ntfs.8
+/usr/share/man/man8/mkntfs.8
+/usr/share/man/man8/mount.lowntfs-3g.8
+/usr/share/man/man8/mount.ntfs-3g.8
+/usr/share/man/man8/ntfs-3g.8
+/usr/share/man/man8/ntfs-3g.probe.8
+/usr/share/man/man8/ntfscat.8
+/usr/share/man/man8/ntfsclone.8
+/usr/share/man/man8/ntfscluster.8
+/usr/share/man/man8/ntfscmp.8
+/usr/share/man/man8/ntfscp.8
+/usr/share/man/man8/ntfsdecrypt.8
+/usr/share/man/man8/ntfsfallocate.8
+/usr/share/man/man8/ntfsfix.8
+/usr/share/man/man8/ntfsinfo.8
+/usr/share/man/man8/ntfslabel.8
+/usr/share/man/man8/ntfsls.8
+/usr/share/man/man8/ntfsprogs.8
+/usr/share/man/man8/ntfsrecover.8
+/usr/share/man/man8/ntfsresize.8
+/usr/share/man/man8/ntfssecaudit.8
+/usr/share/man/man8/ntfstruncate.8
+/usr/share/man/man8/ntfsundelete.8
+/usr/share/man/man8/ntfsusermap.8
+/usr/share/man/man8/ntfswipe.8
