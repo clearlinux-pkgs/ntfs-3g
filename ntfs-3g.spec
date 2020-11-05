@@ -4,7 +4,7 @@
 #
 Name     : ntfs-3g
 Version  : 3g.progs.2017.3.23
-Release  : 15
+Release  : 16
 URL      : https://tuxera.com/opensource/ntfs-3g_ntfsprogs-2017.3.23.tgz
 Source0  : https://tuxera.com/opensource/ntfs-3g_ntfsprogs-2017.3.23.tgz
 Summary  : NTFS-3G Read/Write Driver Library
@@ -84,35 +84,36 @@ man components for the ntfs-3g package.
 
 %prep
 %setup -q -n ntfs-3g_ntfsprogs-2017.3.23
+cd %{_builddir}/ntfs-3g_ntfsprogs-2017.3.23
 %patch1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1556905577
-export LDFLAGS="${LDFLAGS} -fno-lto"
-export CFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
-export FCFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
-export FFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
-export CXXFLAGS="$CXXFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1604606392
+export GCC_IGNORE_WERROR=1
+export CFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FCFLAGS="$FFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FFLAGS="$FFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
+export CXXFLAGS="$CXXFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
 %configure --disable-static --disable-ldconfig
 make  %{?_smp_mflags}
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-make VERBOSE=1 V=1 %{?_smp_mflags} check
+make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1556905577
+export SOURCE_DATE_EPOCH=1604606392
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/ntfs-3g
-cp COPYING %{buildroot}/usr/share/package-licenses/ntfs-3g/COPYING
-cp COPYING.LIB %{buildroot}/usr/share/package-licenses/ntfs-3g/COPYING.LIB
+cp %{_builddir}/ntfs-3g_ntfsprogs-2017.3.23/COPYING %{buildroot}/usr/share/package-licenses/ntfs-3g/68c94ffc34f8ad2d7bfae3f5a6b996409211c1b1
+cp %{_builddir}/ntfs-3g_ntfsprogs-2017.3.23/COPYING.LIB %{buildroot}/usr/share/package-licenses/ntfs-3g/44f7289042b71631acac29b2f143330d2da2479e
 %make_install
 ## install_append content
 ln -sf /usr/bin/mount.ntfs-3g %{buildroot}/usr/bin/mount.ntfs
@@ -198,8 +199,8 @@ ln -sf /usr/bin/mount.ntfs-3g %{buildroot}/usr/bin/mount.ntfs
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/ntfs-3g/COPYING
-/usr/share/package-licenses/ntfs-3g/COPYING.LIB
+/usr/share/package-licenses/ntfs-3g/44f7289042b71631acac29b2f143330d2da2479e
+/usr/share/package-licenses/ntfs-3g/68c94ffc34f8ad2d7bfae3f5a6b996409211c1b1
 
 %files man
 %defattr(0644,root,root,0755)
