@@ -4,7 +4,7 @@
 #
 Name     : ntfs-3g
 Version  : 3g.progs.2017.3.23
-Release  : 16
+Release  : 17
 URL      : https://tuxera.com/opensource/ntfs-3g_ntfsprogs-2017.3.23.tgz
 Source0  : https://tuxera.com/opensource/ntfs-3g_ntfsprogs-2017.3.23.tgz
 Summary  : NTFS-3G Read/Write Driver Library
@@ -94,10 +94,10 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
 export SOURCE_DATE_EPOCH=1604606392
 export GCC_IGNORE_WERROR=1
-export CFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
-export FCFLAGS="$FFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
-export FFLAGS="$FFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
-export CXXFLAGS="$CXXFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
+export CFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -fzero-call-used-regs=used "
+export FCFLAGS="$FFLAGS -fno-lto -fstack-protector-strong -fzero-call-used-regs=used "
+export FFLAGS="$FFLAGS -fno-lto -fstack-protector-strong -fzero-call-used-regs=used "
+export CXXFLAGS="$CXXFLAGS -fno-lto -fstack-protector-strong -fzero-call-used-regs=used "
 %configure --disable-static --disable-ldconfig
 make  %{?_smp_mflags}
 
