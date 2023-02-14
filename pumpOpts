@@ -1,1 +1,2 @@
 alias = ntfs-3g_ntfsprogs
+regex = (2\d{3}\.\d+\.\d+)
