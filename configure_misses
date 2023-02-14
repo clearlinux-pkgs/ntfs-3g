@@ -1,15 +1,8 @@
 Configure miss: Solaris OS
 Configure miss: Windows OS
 Configure miss: hd.h
-Configure miss: hd.h presence
-Configure miss: hd.h usability
 Configure miss: machine/endian.h
-Configure miss: machine/endian.h presence
-Configure miss: machine/endian.h usability
 Configure miss: struct stat.st_atimensec
 Configure miss: struct stat.st_atimespec
 Configure miss: sys/byteorder.h
-Configure miss: sys/byteorder.h presence
-Configure miss: sys/byteorder.h usability
 Configure miss: uuid_generate
-Configure miss: whether sys/types.h defines makedev
